@@ -5,18 +5,18 @@ Gem::Specification.new do |spec|
   spec.version     = Rails::Maintenance::VERSION
   spec.authors     = ["Paul Belt"]
   spec.email       = ["paul.belt@corestrengths.com"]
-  spec.homepage    = "TODO"
-  spec.summary     = "TODO: Summary of Rails::Maintenance."
-  spec.description = "TODO: Description of Rails::Maintenance."
+  spec.homepage    = "https://github.com/belt/rails-maintenance"
+  spec.summary     = "Summary of Rails::Maintenance."
+  spec.description = "DO: Description of Rails::Maintenance."
   spec.license     = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata["allowed_push_host"] = ""
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/belt/rails-maintenance/tree/v0.0.1/rails-maintenance"
+  spec.metadata["changelog_uri"] = "https://github.com/belt/rails-maintenance/blob/v0.0.1/rails-maintenance/CHANGELOG.md"
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
