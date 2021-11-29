@@ -2,7 +2,7 @@
 ---
 name: "Rubocop"
 
-on:
+'on':
   push:
     branches: [main]
   pull_request:
@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        # os: [ubuntu-20.04, macos-11]
+        os: [ubuntu-20.04]
+        ruby-version: [2.7, 3.0, .ruby-version]
 
     steps:
       - name: Checkout repository
@@ -26,7 +30,6 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: [2.6, 3.0]
           bundler-cache: true
           .ruby-version: true
 

@@ -5,7 +5,7 @@
 ---
 name: Brakeman Scan
 
-on:
+'on':
   push:
     branches: [main]
   pull_request:
@@ -18,6 +18,13 @@ jobs:
   brakeman-scan:
     name: Brakeman Scan
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # os: [ubuntu-20.04, macos-11]
+        os: [ubuntu-20.04]
+        ruby-version: [2.7, 3.0, .ruby-version]
+
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -27,7 +34,6 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: [2.6, 3.0]
           bundler-cache: true
           .ruby-version: true
 
