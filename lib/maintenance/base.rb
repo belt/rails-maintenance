@@ -22,6 +22,8 @@ module Maintenance
         tables = []
         tables.push PaperTrail::Version if defined?(PaperTrail::Version)
         tables.push ActsAsTaggableOn::Tag if defined?(ActsAsTaggableOn::Tag)
+        tables.push ActsAsTaggableOn::Tagging if defined?(ActsAsTaggableOn::Tagging)
+        tables.push ActiveRecord::SchemaMigration if defined?(ActiveRecord::SchemaMigration)
         tables
       end
     end
