@@ -106,6 +106,9 @@ module Maintenance
 
       # faster than bouncing database schemas
       def truncate_all
+        rails_env = Rails.env.to_s
+        return unless %w(development test).include?(rails_env)
+
         filtered_descendants.each do |klass|
           table_name = klass.table_name
           ::Rails.logger.error { "TRUNCATE TABLE #{table_name} CASCADE;" }
