@@ -11,9 +11,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.1'
 
-# Specify your gem's dependencies in rails-maintenance.gemspec.
-gemspec
-
 # rails
 gem 'activerecord'
 gem 'activesupport'
