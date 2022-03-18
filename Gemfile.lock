@@ -49,25 +49,29 @@ GEM
       tty-pager
       tty-screen
       tty-tree
-    faraday (1.8.0)
+    faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
       faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.1)
+      faraday-net_http_persistent (~> 1.0)
       faraday-patron (~> 1.0)
       faraday-rack (~> 1.0)
-      multipart-post (>= 1.2, < 3)
+      faraday-retry (~> 1.0)
       ruby2_keywords (>= 0.0.4)
     faraday-em_http (1.0.0)
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
     faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.3)
+      multipart-post (>= 1.2, < 3)
     faraday-net_http (1.0.1)
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
     fasterer (0.9.0)
       colorize (~> 0.7)
       ruby_parser (>= 3.14.1)
@@ -77,9 +81,9 @@ GEM
       path_expander (~> 1.0)
       ruby_parser (~> 3.0)
       sexp_processor (~> 4.0)
-    gitlab (4.17.0)
+    gitlab (4.18.0)
       httparty (~> 0.18)
-      terminal-table (~> 1.5, >= 1.5.1)
+      terminal-table (>= 1.5.1)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -91,13 +95,13 @@ GEM
     macaddr (1.7.2)
       systemu (~> 2.6.5)
     method_source (0.9.2)
-    mime-types (3.3.1)
+    mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.1115)
+    mime-types-data (3.2022.0105)
     minitest (5.14.4)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    octokit (4.21.0)
+    octokit (4.22.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     overcommit (0.58.0)
@@ -127,7 +131,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.1.1)
     rexml (3.2.5)
@@ -228,7 +232,7 @@ DEPENDENCIES
   uuid
 
 RUBY VERSION
-   ruby 2.7.5p203
+   ruby 3.1.1p18
 
 BUNDLED WITH
    2.1.4

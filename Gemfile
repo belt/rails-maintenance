@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '3.1.1'
 
 # Specify your gem's dependencies in rails-maintenance.gemspec.
 gemspec
