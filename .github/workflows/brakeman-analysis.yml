@@ -22,9 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         # os: [ubuntu-20.04, macos-11]
-        # ruby-version: [2.7, 3.0, .ruby-version]
         os: [ubuntu-20.04]
-        ruby-version: [2.7]
+        ruby-version: [2.6, 2.7, 3.0, 3.1, .ruby-version]
 
     steps:
       # Checkout the repository to the GitHub Actions runner
@@ -35,6 +34,7 @@ jobs:
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
+          ruby-version: [2.6, 2.7, 3.0, 3.1, .ruby-version]
           bundler-cache: true
           .ruby-version: true
 

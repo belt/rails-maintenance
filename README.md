@@ -1,8 +1,12 @@
 # Rails::Maintenance
-Short description and motivation.
+Collection of handy maintenace tasks when operating within a rails app
 
 ## Usage
-How to use my plugin.
+Generally, launch a rails console or a rails task. Read comment blocks at top of files
+
+```bash
+$ rails -T maintenance
+```
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -22,7 +26,7 @@ $ gem install rails-maintenance
 ```
 
 ## Contributing
-Contribution directions go here.
+Standard fork-and-pull
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [Mozilla Public License 2.0](https://opensource.org/licenses/MPL-2.0).
