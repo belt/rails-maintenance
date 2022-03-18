@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -21,7 +23,7 @@ gem 'awesome_print'
 gem 'bond'
 gem 'interactive_editor'
 gem 'pry'
-gem 'pry-rails'
+gem 'pry-nav'
 # gem 'pry-remote'
 
 # data, validation, and transformations
@@ -44,7 +46,6 @@ group :development, :test do
   gem 'byebug'
   gem 'fasterer', require: false
   gem 'flay', require: false
-  gem 'pry-nav'
   gem 'rspec'
 
   # ops support

@@ -128,8 +128,6 @@ GEM
       method_source (~> 1.0)
     pry-nav (1.0.0)
       pry (>= 0.9.10, < 0.15)
-    pry-rails (0.3.9)
-      pry (>= 0.10.4)
     public_suffix (4.0.6)
     rainbow (3.1.1)
     rake (13.0.6)
@@ -222,7 +220,6 @@ DEPENDENCIES
   pronto
   pry
   pry-nav
-  pry-rails
   rails-maintenance!
   rspec
   rubocop (~> 1.18.3)
@@ -235,4 +232,4 @@ RUBY VERSION
    ruby 3.1.1p18
 
 BUNDLED WITH
-   2.2.15
+   2.3.9
