@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_support/configurable'
 require_relative './options'
 require_relative './base'
 require_relative './database'
@@ -22,7 +23,9 @@ module Maintenance
   #     end
   #   end
   class ProjectFeatures
-    FEATURES = Options::FEATURES
+    include ActiveSupport::Configurable
+    config_accessor :features
+    config.features = ::Maintenance::Options.config.features
 
     class << self
       # e.g. ::Maintenance::ProjectFeatures.models_supporting_features
@@ -55,7 +58,7 @@ module Maintenance
       # reject models not supporting selected FEATURES
       # e.g. ::Maintenance::ProjectFeatures.featured_descendants
       def featured_descendants(features: nil)
-        features ||= ::Maintenance::Options::FEATURES
+        features ||= ::Maintenance::Options.config.features
 
         featured = ::Maintenance::Database.filtered_descendants.reject do |model|
           !model.respond_to?(:supports_features) ||
