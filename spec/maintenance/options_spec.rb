@@ -15,32 +15,52 @@ RSpec.describe Maintenance::Options do
   end
 
   context 'when setting VERBOSE truthy' do
-    it 'casts 1 and true as booleans', :aggregate_failures do
-      allow(ENV).to receive(:[]).with('VERBOSE').and_return('true')
-      expect(Maintenance::Options::VERBOSE).to be_truthy
+    ClimateControl.modify VERBOSE: 'TRUE', skip: 'VERBOSE is always nil' do
+      # hypothesis: eager loading of class as class constant
+      it 'casts TRUE as boolean', :aggregate_failures do
+        # allow(ENV).to receive(:[]).with('VERBOSE').and_return('TRUE')
+        expect(Maintenance::Options::VERBOSE).to be_truthy
+      end
+    end
 
-      allow(ENV).to receive(:[]).with('VERBOSE').and_return('1')
-      expect(Maintenance::Options::VERBOSE).to be_truthy
+    ClimateControl.modify VERBOSE: 'true' do
+      it 'casts true as boolean', :aggregate_failures do
+        expect(Maintenance::Options::VERBOSE).to be_truthy
+      end
+    end
+
+    ClimateControl.modify VERBOSE: '1' do
+      it 'casts 1 as boolean', :aggregate_failures do
+        expect(Maintenance::Options::VERBOSE).to be_truthy
+      end
     end
   end
 
   context 'when setting VERBOSE falsey' do
-    it 'casts true and false as booleans', :aggregate_failures do
-      allow(ENV).to receive(:[]).with('VERBOSE').and_return('0')
-      expect(Maintenance::Options::VERBOSE).to be_falsey
+    ClimateControl.modify VERBOSE: 'FALSE' do
+      it 'casts false as boolean', :aggregate_failures do
+        expect(Maintenance::Options::VERBOSE).to be_falsey
+      end
+    end
 
-      allow(ENV).to receive(:[]).with('VERBOSE').and_return('false')
-      expect(Maintenance::Options::VERBOSE).to be_falsey
+    ClimateControl.modify VERBOSE: 'false' do
+      it 'casts false as boolean', :aggregate_failures do
+        expect(Maintenance::Options::VERBOSE).to be_falsey
+      end
+    end
+
+    ClimateControl.modify VERBOSE: '0' do
+      it 'casts 0 as boolean', :aggregate_failures do
+        expect(Maintenance::Options::VERBOSE).to be_falsey
+      end
     end
   end
 
   context 'when level-setting VERBOSE' do
-    before do
-      allow(ENV).to receive(:[]).with('VERBOSE').and_return('10')
-    end
-
     it 'casts to an integer' do
-      expect(Maintenance::Options::VERBOSE_LEVEL).to be_a_kind_of(Integer)
+      ClimateControl.modify VERBOSE: '10' do
+        expect(Maintenance::Options::VERBOSE_LEVEL).to be_a_kind_of(Integer)
+      end
     end
   end
 

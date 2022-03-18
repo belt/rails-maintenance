@@ -2,6 +2,7 @@
 
 require 'awesome_print'
 require 'bond'
+require 'climate_control'
 require 'interactive_editor'
 require 'pry'
 
