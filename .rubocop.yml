@@ -1,0 +1,148 @@
+---
+require:
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+  TargetRubyVersion: 2.6
+
+#
+# Layout/*
+#
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true
+
+Layout/LineLength:
+  Enabled: true
+
+  # be friendly to 2 windows, side-by-side, 100 columns each,, before wrapping
+  Max: 100
+  Exclude:
+    - 'db/**/*'
+
+#
+# Metrics/*
+#
+Metrics/BlockLength:
+  Enabled: true
+  Max: 95
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'config/routes.rb'
+    - 'lib/**/*.rake'
+
+# optimal-max chunking for human memory capacity, and chunk-reducing strategy for cognitive load
+Metrics/ClassLength:
+  Enabled: true
+  Max: 1200
+
+#
+# Naming/*
+#
+Naming/MethodName:
+  Enabled: true
+
+#
+# Rails/*
+#
+Rails/IndexWith:
+  Enabled: true
+
+#
+# RSpec/*
+#
+RSpec/DescribeClass:
+  Enabled: true
+  Exclude:
+    - 'spec/requests/**/*.rb'
+
+# optimal-max chunking for human memory capacity, and chunk-reducing strategy for cognitive load
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 15
+  Exclude:
+    - 'spec/integration/**/*_spec.rb'
+
+RSpec/FilePath:
+  Exclude:
+    - 'spec/**/*.rb'
+  Include:
+    - 'app/**/*.rb'
+    - 'config/**/*.rb'
+    - 'db/**/*.rb'
+    - 'lib/**/*.rb'
+
+# optimal-max chunking for human memory capacity, and chunk-reducing strategy for cognitive load
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 5
+
+RSpec/VariableName:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+RSpec/VerifiedDoubles:
+  Enabled: true
+  IgnoreSymbolicNames: true
+
+#
+# Style/*
+#
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+# Style/BlockComments:
+#   Exclude:
+#     - 'spec/spec_helper.rb'
+
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+
+Style/Documentation:
+  Enabled: true
+
+# Style/FormatStringToken:
+#   Enabled: false
+
+# chunk-reducing strategy for cognitive load
+Style/GuardClause:
+  Enabled: true
+
+# optimal-min chunk-reducing strategy for cognitive load
+Style/NumericLiterals:
+  Enabled: true
+  MinDigits: 7
+
+# consistency strategy to reduce cognitive load
+Style/PercentLiteralDelimiters:
+  Description: Use `%`-literal delimiters consistently
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-literal-braces
+  PreferredDelimiters:
+    "%": "()"
+    "%i": "()"
+    "%q": "()"
+    "%Q": "()"
+    "%r": "{}"
+    "%s": "()"
+    "%w": "()"
+    "%W": "()"
+    "%x": "()"
+
+Style/SingleArgumentDig:
+  Enabled: true
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'spec/lib/**/*.rb'
+
+Style/SymbolArray:
+  Exclude:
+    - 'Gemfile'
+
+# vim: set fdm=indent
