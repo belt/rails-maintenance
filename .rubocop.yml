@@ -1,5 +1,6 @@
 ---
 require:
+  - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
 
@@ -15,6 +16,10 @@ AllCops:
 #
 # Layout/*
 #
+Layout/BlockAlignment:
+  Exclude:
+    - 'lib/tasks/rails/maintenance_tasks.rake'
+
 Layout/EmptyLineAfterGuardClause:
   Enabled: true
 

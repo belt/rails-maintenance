@@ -8,8 +8,10 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/belt/rails-maintenance'
 
   spec.rubygems_version = '3.0.9'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.9')
-  spec.required_rubygems_version = Gem::Requirement.new('>= 3') if spec.respond_to? :required_rubygems_version=
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.8')
+  if spec.respond_to? :required_rubygems_version=
+    spec.required_rubygems_version = Gem::Requirement.new('>= 3')
+  end
 
   if spec.respond_to? :metadata=
     base_uri = "https://github.com/belt/rails-maintenance/blob/v#{spec.version}"
@@ -22,14 +24,14 @@ Gem::Specification.new do |spec|
     # Prevent pushing this gem to RubyGems.org. To allow pushes either set
     # the 'allowed_push_host' to allow pushing to a single host or delete
     # this section to allow pushing to any host.
-    meta.merge!('allowed_push_host' => '')
+    meta['allowed_push_host'] = ''
 
     spec.metadata = meta
   end
 
   spec.require_paths = ['lib']
   spec.authors = ['Paul Belt']
-  spec.description = 'Collection of handy maintenace tasks when operating within a rails app'
+  spec.description = 'Collection of handy maintenance tasks when operating within a rails app'
   spec.email = ['paul.belt+github@gmail.com']
   spec.licenses = ['Apache-2.0']
   spec.summary = 'Maintenance framework for Rails.'
