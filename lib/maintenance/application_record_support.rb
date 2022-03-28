@@ -32,7 +32,7 @@ module ApplicationRecordSupport
 
       class << self
         def features
-          %i[]
+          %i()
         end
 
         def supports_features

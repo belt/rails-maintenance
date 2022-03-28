@@ -8,9 +8,9 @@ module Maintenance
   class Base
     class << self
       def eager_load_namespaces
-        ::Rails.configuration.eager_load_namespaces.reject do |ns|
+        ::Rails.configuration.eager_load_namespaces.reject { |ns|
           exclude_namespaces.include?(ns)
-        end.each(&:eager_load!)
+        }.each(&:eager_load!)
       end
 
       def exclude_namespaces

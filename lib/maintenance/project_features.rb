@@ -34,9 +34,9 @@ module Maintenance
       def models_supporting_features
         # initialize supported_features map
         ::Maintenance::Base.eager_load_namespaces
-        ::Maintenance::Database.filtered_descendants.select do |model|
+        ::Maintenance::Database.filtered_descendants.select { |model|
           model.respond_to?(:supports_features)
-        end.map(&:supports_features)
+        }.map(&:supports_features)
 
         # report findings
         ApplicationRecord.config.supports_features

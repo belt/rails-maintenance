@@ -18,9 +18,9 @@ module Maintenance
       begin
         CSV.parse(ENV['FEATURES'].to_s.downcase)
       rescue ArgumentError => _e
-        ::Maintenance::Database.tabled_descendants.select do |model|
+        ::Maintenance::Database.tabled_descendants.select { |model|
           model.respond_to?(:supports_features)
-        end.map(&:supports_features).flat_map(&:keys).uniq.sort
+        }.map(&:supports_features).flat_map(&:keys).uniq.sort
       end
     ).flatten.sort.uniq.freeze
 

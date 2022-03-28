@@ -39,18 +39,18 @@ module Maintenance
       # indexed columns that follow foreign-key "_id" convention
       def indexed_column_names_for(model:)
         Set.new(
-          db_connection.indexes(model.table_name).select do |idx|
+          db_connection.indexes(model.table_name).select { |idx|
             Array(idx.columns).all? { |col| col.match?(/_id$/) }
-          end.flat_map(&:columns)
+          }.flat_map(&:columns)
         )
       end
 
       # columns that follow foreign-key "_id" convention
       def id_column_names_for(model:)
         Set.new(
-          db_connection.columns(model.table_name).select do |column|
+          db_connection.columns(model.table_name).select { |column|
             column.name.match?(/_(?:uu)?id$/)
-          end.map(&:name)
+          }.map(&:name)
         )
       end
 
@@ -128,7 +128,7 @@ module Maintenance
       #
       # ActiveRecord::Base descendants excluding those from gems and those
       # without storage tables
-      def tabled_descendants
+      def _tabled_descendants
         all_tabled_descendants.reject do |model|
           exclude_tables.include?(model.table_name.to_sym)
         end
