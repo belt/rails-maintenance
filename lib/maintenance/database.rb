@@ -3,10 +3,12 @@
 require_relative 'base'
 require_relative 'options'
 
-# require Rails.root.join('lib', 'maintenance', 'database')
+# require 'maintenance/database'
 module Maintenance
-  # Convenience functions when operatating on databases
+  # Convenience functions when operating on databases
   #
+  # pry> ::Maintenance::Database.ping? # with auto-reconnect
+  # pry> ::Maintenance::Database.reconnect!
   # pry> ::Maintenance::Database.bootstrap_postgres_extension(name: 'postgres_fdw')
   # pry> ::Maintenance::Database.execute_sql(sql: 'select 1;')
   # pry> ::Maintenance::Database.filtered_descendants
@@ -20,6 +22,43 @@ module Maintenance
       def db_connection(model: ActiveRecord::Base)
         @db_connection ||= model.connection
       end
+
+      def reconnect!
+        ActiveRecord::Base.connection.reconnect!
+      rescue PG::Error => e
+        Rails.logger.error { e.message }
+        false
+      end
+
+      TUNNEL_COLLAPSE_CAUSE_FOR = {
+        pg: {
+          'PGconsumeInput() SSL SYSCALL error: EOF detected' => {
+            probable_cause: 'connection to database dropped or tunnel collapsed'
+          },
+          'no connection to the server' => {
+            probable_cause: 'no connections available to the pool'
+          }
+        }
+      }.with_indifferent_access.freeze
+
+      def ping?
+        ActiveRecord::Base.logger.silence do
+          ActiveRecord::Base.connection.execute('SELECT 1; -- ping')
+        end
+
+        true
+      rescue ActiveRecord::StatementInvalid => e
+        fail_translations = TUNNEL_COLLAPSE_CAUSE_FOR.fetch(:pg)
+
+        if fail_translations[e.mcause.message.chomp]
+          reconnect!
+          sleep 0.3 # TODO: exponential back off... with jitter
+          return ping?
+        end
+
+        false
+      end
+      alias_method :ping, :ping?
 
       def tabled_descendants(exclude_gem_tables: true)
         ::Maintenance::Base.eager_load_namespaces
