@@ -5,7 +5,12 @@ require_relative './options'
 require_relative './base'
 require_relative './database'
 
-# require Rails.root.join('lib', 'maintenance', 'project_features')
+# require 'maintenance/project_features'
+# _features = Maintenance::ProjectFeatures.models_supporting_features.keys.sort
+# Maintenance::ProjectFeatures.models_supporting_features
+# Maintenance::ProjectFeatures.featured_table_names(features: %w(identity authorization))
+# Maintenance::ProjectFeatures.non_featured_table_names(features: %w(identity authorization)).uniq
+# Maintenance::ProjectFeatures.featured_descendants(features: %w(identity authorization))
 module Maintenance
   # supports_features: capture a set of product-features a given model supports
   #
@@ -44,14 +49,14 @@ module Maintenance
 
       # e.g. ::Maintenance::ProjectFeatures.featured_table_names
       def featured_table_names(features: nil)
-        featured_descendants(features: features).map(&:table_name)
+        featured_descendants(features: features).map(&:table_name).map(&:to_s).uniq
       end
 
       # e.g. ::Maintenance::ProjectFeatures.non_featured_table_names
       def non_featured_table_names(features: nil)
-        ::Maintenance::Database.tabled_descendants.map(
+        ::Maintenance::Database.filtered_descendants.map(
           &:table_name
-        ) - featured_table_names(features: features)
+        ).map(&:to_s).uniq - featured_table_names(features: features)
       end
 
       # reject those not supporting features under scrutiny
