@@ -50,7 +50,7 @@ module Maintenance
       rescue ActiveRecord::StatementInvalid => e
         fail_translations = TUNNEL_COLLAPSE_CAUSE_FOR.fetch(:pg)
 
-        if fail_translations[e.mcause.message.chomp]
+        if fail_translations[e.cause.message.chomp]
           reconnect!
           sleep 0.3 # TODO: exponential back off... with jitter
           return ping?
