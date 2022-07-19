@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Collection of handy maintenace tasks when operating within a rails app
+# Collection of handy maintenance tasks when operating within a rails app
 module Maintenance
   # Collection of handy rails tasks
   #
@@ -24,6 +24,7 @@ module Maintenance
         tables.push ActsAsTaggableOn::Tag if defined?(ActsAsTaggableOn::Tag)
         tables.push ActsAsTaggableOn::Tagging if defined?(ActsAsTaggableOn::Tagging)
         tables.push ActiveRecord::SchemaMigration if defined?(ActiveRecord::SchemaMigration)
+        tables.push ActiveStorage::Blob if defined?(ActiveStorage::Blob)
         tables
       end
     end

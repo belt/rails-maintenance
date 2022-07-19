@@ -63,7 +63,7 @@ module Maintenance
       def tabled_descendants(exclude_gem_tables: true)
         ::Maintenance::Base.eager_load_namespaces
         tables = ActiveRecord::Base.descendants.select(&:table_name)
-        tables -= tables_of_aggregation if exclude_gem_tables
+        tables -= ::Maintenance::Base.tables_of_aggregation if exclude_gem_tables
         tables
       end
 
