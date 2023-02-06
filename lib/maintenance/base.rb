@@ -25,6 +25,8 @@ module Maintenance
         tables.push ActsAsTaggableOn::Tagging if defined?(ActsAsTaggableOn::Tagging)
         tables.push ActiveRecord::SchemaMigration if defined?(ActiveRecord::SchemaMigration)
         tables.push ActiveStorage::Blob if defined?(ActiveStorage::Blob)
+        tables.push ActionText::RichText if defined?(ActionText::RichText)
+        tables.push ActionMailbox::InboundEmail if defined?(ActionMailbox::InboundEmail)
         tables
       end
     end
