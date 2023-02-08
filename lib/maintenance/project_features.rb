@@ -11,6 +11,10 @@ require_relative './database'
 # Maintenance::ProjectFeatures.featured_table_names(features: %w(identity authorization))
 # Maintenance::ProjectFeatures.non_featured_table_names(features: %w(identity authorization)).uniq
 # Maintenance::ProjectFeatures.featured_descendants(features: %w(identity authorization))
+# Maintenance::ProjectFeatures.tabled_descendants_of(model: User)
+# Maintenance::ProjectFeatures.humanized_tabled_descendants_of(model: User)
+# Maintenance::ProjectFeatures.descendant_of?(model: User, descendant: AR::BelongsToReflection)
+# Maintenance::ProjectFeatures.reflections_of(model: User)
 module Maintenance
   # supports_features: capture a set of product-features a given model supports
   #
@@ -72,6 +76,64 @@ module Maintenance
         return ::Maintenance::Database.tabled_descendants if featured.empty?
 
         featured
+      end
+
+      # e.g. ::Maintenance::ProjectFeatures.tabled_descendants_of(model: User)
+      def tabled_descendants_of(model: nil)
+        tabled_reflections = tabled_models.filter_map do |descendant|
+          descendant if descendant_of?(model: model, descendant: descendant)
+        end
+        tabled_reflections.each_with_object({}) do |descendant, acc|
+          relatives = reflections_of(model: model, descendant: descendant)
+          next if relatives.blank?
+
+          acc[descendant] ||= []
+          acc[descendant].push(*relatives)
+        end
+      end
+
+      # e.g. ::Maintenance::ProjectFeatures.humanized_tabled_descendants_of(model: User)
+      def humanized_tabled_descendants_of(model: nil)
+        tabled_descendants_of(model: model).transform_values { |node|
+          node.map  do |rel|
+            rel == ActiveRecord::Reflection::BelongsToReflection ? "#{rel.name}_id" : rel.name
+          end
+        }.transform_keys(&:name)
+      end
+
+      # e.g. ::Maintenance::ProjectFeatures.descendant_of?(model: User, descendant: Reflection)
+      def descendant_of?(model:, descendant:)
+        filter_for = model_filter(model: model)
+        return false if filter_for == descendant.name
+
+        descendant.reflections.detect do |(_relation_name, rel)|
+          rel_reflections = reflections_of(model: model, descendant: rel.active_record)
+          rel_reflections.present?
+        end
+      end
+
+      # e.g. ::Maintenance::ProjectFeatures.polymorphic_reflections_of(model: User)
+      # TODO: search for these with `_type = 'User'` in SQL
+      def polymorphic_reflections_of(model:)
+        model.reflections.values.select { |rel| rel.options[:polymorphic] }
+      end
+
+      # e.g. ::Maintenance::ProjectFeatures.reflections_of(model: User)
+      def reflections_of(model:, descendant:)
+        filter_for = model_filter(model: model)
+
+        descendant.reflections.values.reject { |rel| rel.options[:polymorphic] }.select do |rel|
+          (
+            rel.instance_of?(ActiveRecord::Reflection::BelongsToReflection) &&
+            rel.name.to_s.underscore == model.name.underscore
+          ) || (
+            rel.options[:class_name] == filter_for
+          )
+        end
+      end
+
+      def model_filter(model:)
+        model.respond_to?(:name) ? model.name : model.to_s.classify
       end
     end
   end
