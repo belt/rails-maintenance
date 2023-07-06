@@ -9,11 +9,11 @@ gemspec
 # frozen_string_literal: true
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.1'
+ruby File.read('.ruby-version').strip
 
 # rails
-gem 'activerecord'
-gem 'activesupport'
+gem 'activerecord', '~> 6.1.6.1'
+gem 'activesupport', '~> 6.1.6.1'
 
 # rails console
 gem 'awesome_print'
