@@ -20,14 +20,22 @@ module Maintenance
       # tables not generally a part of features
       def tables_of_aggregation
         tables = []
-        tables.push PaperTrail::Version if defined?(PaperTrail::Version)
-        tables.push ActsAsTaggableOn::Tag if defined?(ActsAsTaggableOn::Tag)
-        tables.push ActsAsTaggableOn::Tagging if defined?(ActsAsTaggableOn::Tagging)
-        tables.push ActiveRecord::SchemaMigration if defined?(ActiveRecord::SchemaMigration)
-        tables.push ActiveStorage::Blob if defined?(ActiveStorage::Blob)
-        tables.push ActionText::RichText if defined?(ActionText::RichText)
-        tables.push ActionMailbox::InboundEmail if defined?(ActionMailbox::InboundEmail)
+        tables.push ActiveRecord::SchemaMigration if table_exists_for(
+          ActiveRecord::SchemaMigration
+        )
+        tables.push ActiveStorage::Blob if table_exists_for(ActiveStorage::Blob)
+        tables.push ActionText::RichText if table_exists_for(ActionText::RichText)
+        tables.push ActionMailbox::InboundEmail if table_exists_for(ActionMailbox::InboundEmail)
+        tables.push PaperTrail::Version if table_exists_for(PaperTrail::Version)
+        tables.push ActsAsTaggableOn::Tag if table_exists_for(ActsAsTaggableOn::Tag)
+        tables.push ActsAsTaggableOn::Tagging if table_exists_for(ActsAsTaggableOn::Tagging)
         tables
+      end
+
+      # NOTE: the class may be defined, but the table may not exist
+      def table_exists_for(klass)
+        defined?(klass)
+      rescue PG::UndefinedTable => e
       end
     end
   end
