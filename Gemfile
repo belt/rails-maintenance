@@ -12,8 +12,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').strip
 
 # rails
-gem 'activerecord', '~> 6.1.6.1'
-gem 'activesupport', '~> 6.1.6.1'
+gem 'activerecord', '~> 6.1.7.4'
+gem 'activesupport', '~> 6.1.7.4'
 
 # rails console
 gem 'awesome_print'
@@ -36,7 +36,7 @@ end
 
 group :test do
   gem 'climate_control'
-  gem 'database_cleaner', '~> 1.7.0'
+  gem 'database_cleaner', '~> 1.99.0'
 end
 
 group :development, :test do
@@ -55,8 +55,8 @@ group :development, :test do
 
   # rubocop
   # NOTE: codeclimate channels only support up to 1.18.3 as of this commit
-  gem 'rubocop', '~> 1.18.3'
-  gem 'rubocop-faker', '~> 1.0.0'
+  gem 'rubocop', '~> 1.52.1'
+  gem 'rubocop-faker', '~> 1.1.0'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
