@@ -12,8 +12,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read('.ruby-version').strip
 
 # rails
-gem 'activerecord', '~> 6.1.7.4'
-gem 'activesupport', '~> 6.1.7.4'
+gem 'activerecord', '~> 6.1.7'
+gem 'activesupport', '~> 6.1.7'
 
 # rails console
 gem 'awesome_print'
