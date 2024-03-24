@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'awesome_print'
+require 'amazing_print'
 require 'bond'
 require 'climate_control'
 require 'interactive_editor'

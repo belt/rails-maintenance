@@ -16,7 +16,7 @@ gem 'activerecord', '~> 6.1.7'
 gem 'activesupport', '~> 6.1.7'
 
 # rails console
-gem 'awesome_print'
+gem 'amazing_print'
 gem 'bond'
 gem 'interactive_editor'
 gem 'pry'
